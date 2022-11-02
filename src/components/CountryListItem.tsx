@@ -1,55 +1,59 @@
 import React, { FC } from "react";
 import { CountryListData } from "store/country/types";
-import {
-  FaBuilding,
-  FaCheck,
-  FaLocationArrow,
-  FaRegAddressBook,
-  FaTruckLoading,
-  FaUser,
-} from "react-icons/fa";
-import { Link } from "react-router-dom";
-
+import Card from "@mui/material/Card";
+import CardActions from "@mui/material/CardActions";
+import CardContent from "@mui/material/CardContent";
+import CardMedia from "@mui/material/CardMedia";
+import Button from "@mui/material/Button";
+import Typography from "@mui/material/Typography";
 interface CountryProps {
   data: CountryListData;
 }
-
 const CountryListItem: FC<CountryProps> = ({ data }) => {
   return (
-    <div className="well-custom">
-      <div className="list-group">
-        <Link
-          to={`/details/`}
-          className="list-group-item"
-          data-testid="list-clicked"
+    <Card sx={{ maxWidth: 245 }}>
+      <CardMedia
+        component="img"
+        alt="green iguana"
+        height="140"
+        image={`${data.flags.png}`}
+      />
+      <CardContent>
+        <Typography
+          gutterBottom
+          variant="h5"
+          component="div"
+          data-testid="id-country-name"
         >
-          <div className="media col-md-3"></div>
-          <div className="col-md-6">
-            <h4 className="list-group-item-heading" data-testid="id-client">
-              {" "}
-              {data.name.common}
-            </h4>
-            <p className="list-group-item-text" data-testid="id-customer-name">
-              <FaUser size={10} /> {data.name.common}
-            </p>
-            <p
-              className="list-group-item-text"
-              data-testid="id-customer-address"
-            >
-              <FaLocationArrow size={10} /> {data.name.common}
-            </p>
-            <p className="list-group-item-text" data-testid="id-customer-city">
-              <FaBuilding size={10} /> {data.name.common}
-            </p>
-            <p
-              className="list-group-item-text"
-              data-testid="id-customer-zipcode"
-            ></p>
-          </div>
-          <div className="col-md-3 text-center" data-testid="id-status"></div>
-        </Link>
-      </div>
-    </div>
+          {data.name.common}
+        </Typography>
+        <Typography
+          variant="body2"
+          color="text.secondary"
+          data-testid="id-country-population"
+        >
+          Population : {data.population}
+        </Typography>
+        <Typography
+          variant="body2"
+          color="text.secondary"
+          data-testid="id-country-region"
+        >
+          Region : {data.region}
+        </Typography>
+        <Typography
+          variant="body2"
+          color="text.secondary"
+          data-testid="id-country-region"
+        >
+          Capital : {data.capital}
+        </Typography>
+      </CardContent>
+      <CardActions>
+        <Button size="small">Share</Button>
+        <Button size="small">Learn More</Button>
+      </CardActions>
+    </Card>
   );
 };
 

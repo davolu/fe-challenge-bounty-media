@@ -38,7 +38,10 @@ export interface CountryListData {
   car: object;
   timezones: object;
   continents: object;
-  flags: object;
+  flags: {
+    png: string;
+    svg: string;
+  };
   coatOfArms: object;
   startOfWeek: string;
   capitalInfo: object;
