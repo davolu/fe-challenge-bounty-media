@@ -1,107 +1,89 @@
 import React, { FC } from "react";
-import { CountryDetailsListData } from "../store/details/types";
-import { FaCheck } from "react-icons/fa";
+import { CountryListData } from "../store/country/types";
+import Grid from "@mui/material/Grid";
+import CardMedia from "@mui/material/CardMedia";
+import Button from "@mui/material/Button";
+import ArrowBackIcon from "@mui/icons-material/ArrowBack";
+import Typography from "@mui/material/Typography";
+import Box from "@mui/material/Box";
+import Container from "@mui/material/Container";
+import Paper from "@mui/material/Paper";
 
-interface ICountryProps {
-  countryData: CountryDetailsListData;
-  isActive: boolean;
-  makeActive: any;
-  aCountryIsActive: boolean;
-  updateCountry: any;
+interface CountryProps {
+  data: CountryListData;
+  setShowDetails: any;
 }
-
-const DetailsBox: FC<ICountryProps> = ({
-  countryData,
-  isActive,
-  makeActive,
-  aCountryIsActive,
-  updateCountry,
-}) => {
-  const setActiveButtonHandler = (
-    event: React.MouseEvent<HTMLButtonElement>
-  ) => {
-    event.preventDefault();
-    makeActive();
-  };
-  const setDeliveredButtonHandler = (
-    event: React.MouseEvent<HTMLButtonElement>
-  ) => {
-    updateCountry("delivered");
-  };
-  const setUnDeliveredButtonHandler = (
-    event: React.MouseEvent<HTMLButtonElement>
-  ) => {
-    updateCountry("undelivered");
-  };
-
+const DetailsBox: FC<CountryProps> = (props) => {
+  const { data, setShowDetails } = props;
   return (
-    <div className="card">
-      <div className="card-body">
-        <div className="d-flex flex-column align-items-center text-center">
-          <div className="mt-10x">
-            <h4>{countryData.client}</h4>
-            <p
-              className="text-secondary mb-1"
-              data-testid="details-customer-name"
-            >
-              {countryData.customer.name}
-            </p>
-            <p
-              className="text-muted font-size-sm"
-              data-testid="details-customer-address"
-            >
-              {countryData.customer.address}
-            </p>
-            <p
-              className="text-muted font-size-sm"
-              data-testid="details-customer-city"
-            >
-              {countryData.customer.city} | {countryData.customer.zipCode}
-            </p>
+    <>
+      <Box component="section">
+        <Container sx={{ py: 10 }} maxWidth="lg">
+          <Grid container spacing={3} mt={10}>
+            <Grid item xs={12} sm={5} md={5}>
+              <Button
+                variant="outlined"
+                className="back-btn"
+                onClick={() => {
+                  setShowDetails(false);
+                }}
+                startIcon={<ArrowBackIcon />}
+              >
+                Back
+              </Button>
+              <Paper
+                component="form"
+                sx={{
+                  p: "2px 4px",
+                  display: "flex",
+                  alignItems: "center",
+                  width: 400,
+                }}
+              >
+                <CardMedia
+                  component="img"
+                  alt={`${data.name.common}`}
+                  height="240"
+                  image={`${data.flags.png}`}
+                />
+              </Paper>
+            </Grid>
 
-            {countryData.country.status !== "delivered" ? (
-              isActive ? (
-                <div>
-                  <button
-                    className="btn btn-success"
-                    data-testid="details-button-delivered"
-                    onClick={setDeliveredButtonHandler}
-                  >
-                    Mark as delivered
-                  </button>
+            <Grid item xs={12} sm={3} spacing={2} ml-lg={10} md={3}>
+              <Typography variant="h4" component="h4" mt={7}>
+                {data.name.common}
+              </Typography>
+              <div className="mt-10">
+                <p>Native Name: {data.cca2}</p>
+                <p>Population: {data.population} </p>
+                <p>Region: {data.region} </p>
+                <p>Sub Region: {data.subregion} </p>
+                <p>Capital: {data.capital} </p>
+              </div>
+            </Grid>
 
-                  <button
-                    className="btn btn-primary"
-                    data-testid="details-button-undelivered"
-                    onClick={setUnDeliveredButtonHandler}
-                  >
-                    Mark as unDelivered
-                  </button>
-                </div>
-              ) : (
-                <div>
-                  <button
-                    disabled={aCountryIsActive ? true : false}
-                    className="btn btn-success"
-                    data-testid="make-active-button"
-                    onClick={setActiveButtonHandler}
-                  >
-                    Make Active
-                  </button>
-                </div>
-              )
-            ) : (
-              <>
-                <FaCheck size={60} color={"green"} />
-                <p className="text-success text-bold">
-                  {countryData.country.status}
+            <Grid item xs={12} sm={3} md={3} mt={15}>
+              <div className="mt-10">
+                <p>Top Level Domain: {data.tld}</p>
+                <p>
+                  Currencies:
+                  {Object.values(data.currencies).map((item) => (
+                    <span>{item.symbol}</span>
+                  ))}{" "}
                 </p>
-              </>
-            )}
-          </div>
-        </div>
-      </div>
-    </div>
+
+                <p>
+                  Languages:
+                  {Object.values(data.languages).map((item) => (
+                    <span>{item}, </span>
+                  ))}
+                </p>
+              </div>
+            </Grid>
+          </Grid>
+        </Container>
+      </Box>
+    </>
   );
 };
 export default DetailsBox;

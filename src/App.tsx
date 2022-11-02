@@ -1,6 +1,6 @@
 import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import { Home, Details } from "./pages";
+import { Home } from "./pages";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { getDesignTokens, Colors } from "theme";
 import CssBaseline from "@mui/material/CssBaseline";
@@ -27,7 +27,6 @@ const App = () => {
       <Router>
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="/details" element={<Details />} />
         </Routes>
       </Router>
     </ThemeProvider>

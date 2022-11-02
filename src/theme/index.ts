@@ -33,4 +33,7 @@ export const getDesignTokens = (mode: string) => ({
           },
         }),
   },
+  typography: {
+    fontSize: 18,
+  },
 });
