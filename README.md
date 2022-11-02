@@ -1,6 +1,12 @@
-# Getting Started with Create React App
+# Bounty Media react test Submission
 
-Bounty Media react test submissin by David oluyale
+
+# Built with : 
+- React
+- Typescript
+- Testing library React/ Jest
+- Redux and React Hooks 
+- Material UI
 
 ## Available Scripts
 
